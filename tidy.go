@@ -22,6 +22,13 @@ type config struct {
 	}
 }
 
+//規則格納用
+type rule struct {
+	Match string
+	Replace string
+	Moveto string
+}
+
 func main() {
 
 	IniFilePath, WorkPath, RulePath, err := initPath()
@@ -39,18 +46,6 @@ func main() {
 	pause()
 }
 
-func getRuleFilePath() (string, bool) {
-	var RuleFilePath string
-	if len(os.Args) == 1 {
-		ExecPath, _ := os.Getwd()
-		RuleFilePath = ExecPath + "\\" + createDefaultRuleFileName()
-	} else {
-		RuleFilePath = os.Args[1]
-	}
-	_, err := os.Stat(RuleFilePath)
-	return RuleFilePath, !os.IsNotExist(err)
-}
-
 func createDefaultRuleFileName() string {
 	t := strings.Split(time.Now().Format(RFC1123), "/")
 	year := t[0]
@@ -64,7 +59,7 @@ func checkArgs() bool {
 }
 
 func showUsage() {
-	fmt.Println("Usage : file_dist.exe [ini_File's_Path]")
+	fmt.Println("Usage : tidy.exe [ini_File's_Path]")
 }
 
 func pause() {
@@ -79,7 +74,7 @@ func initPath() (string, string, string, string) {
 
 	IniFilePath, err := getIniFile()
 	if false == err {
-		ErrorMessage += "ini file is not exist. \n"
+		ErrorMessage += "ini file does not exist. \n"
 		return IniFilePath, "", "", ErrorMessage
 	}
 	//iniファイル読み取り
@@ -127,9 +122,9 @@ func readIniFile(IniFilePath string) (string, string, string) {
 	WorkPath := cfg.Path.Workpath
 	WorkPathInfo, err := os.Stat(WorkPath)
 	if false == !os.IsNotExist(err) {
-		ErrorMessage += "Path '" + WorkPath + "' is not Exist.\n"
+		ErrorMessage += "Path '" + WorkPath + "' does not exist.\n"
 	} else if false == WorkPathInfo.IsDir() {
-		ErrorMessage += "Path '" + WorkPath + "' is not Directory.\n"
+		ErrorMessage += "Path '" + WorkPath + "' is not a directory.\n"
 	}
 
 	//Rulepath 設定値のフォルダ判定
@@ -148,7 +143,7 @@ func readIniFile(IniFilePath string) (string, string, string) {
 	//　規則ファイルの存在チェック
 	_, err = os.Stat(RulePath)
 	if false == !os.IsNotExist(err) {
-		ErrorMessage += "Rule File is not exist.　-> " + RulePath + "\n"
+		ErrorMessage += "Rule File does not exist.　-> " + RulePath + "\n"
 	}
 
 	return WorkPath, RulePath, ErrorMessage
