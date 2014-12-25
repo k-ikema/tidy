@@ -2,9 +2,9 @@
   規則ファイルの設定に従ってファイルを振り分けたりリネームしたりする
 
 * 実行方法  
-  file_distributor.exe [ini ファイルのpath]
+  tidy.exe [ini ファイルのpath]
   * ini ファイルのpath  
-  省略時には実行ディレクトリ直下のfile_distributor.ini を探す    　  
+  省略時には実行ディレクトリ直下のtidy.ini を探す    　  
 
 
 * ini ファイルの記述  
