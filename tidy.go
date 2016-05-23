@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"code.google.com/p/gcfg"
+	"gopkg.in/gcfg.v1"
 )
 
 const RFC1123 = "2006/01/02 15:04:05 MST"

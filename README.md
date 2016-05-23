@@ -1,4 +1,4 @@
-* What's this  
+* What's this?  
   規則ファイルの設定に従ってファイルを振り分けたりリネームしたりする
 
 * 実行方法  
@@ -34,4 +34,5 @@
 
 * 追加必要なPackage
   * gcfg  
-    $ go get code.google.com/p/gcfg
+    $ go get gopkg.in/gcfg.v1  
+    
